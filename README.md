@@ -1,7 +1,7 @@
 # 🤖 30-Day Kaggle ML Roadmap
 
 > A structured, hands-on machine learning journey — from raw data to real Kaggle submissions.  
-> **Goal:** AI/ML job-ready by June 2026 | **Status:** 🟢 Active
+> **Status:** 🟢 Active
 
 ---
 
