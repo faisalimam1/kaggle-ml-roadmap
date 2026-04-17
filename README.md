@@ -1,7 +1,7 @@
 # 🤖 30-Day Kaggle ML Roadmap
 
-> A structured, hands-on machine learning journey — from raw data to real Kaggle submissions.  
-> **Goal:** AI/ML job-ready by June 2026 | **Status:** 🟢 Active
+> A structured, hands-on machine learning journey, from raw data to real Kaggle submissions.  
+> **Status:** 🟢 Active
 
 ---
 
@@ -15,7 +15,7 @@ This is not a collection of copied tutorials. Every notebook here represents:
 - Model building from scratch with full reasoning
 - Real Kaggle submissions with public leaderboard scores
 
-Each project follows a deliberate learning sequence — simpler concepts first, advanced techniques built on top.
+Each project follows a deliberate learning sequence, simpler concepts first, advanced techniques built on top.
 
 ---
 
