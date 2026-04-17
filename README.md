@@ -164,8 +164,8 @@ I document each day's learning on LinkedIn with specific insights, code snippets
 
 ## 🎯 Goal
 
-Become job-ready for **AI/ML roles by June 2026** through:
-- Hands-on Kaggle experience across 5 problem types
+Hands on experience in **AI/ML** through:
+- Kaggle experience across 5 problem types
 - Strong intuition for EDA, feature engineering, and model selection
 - Real leaderboard scores as proof of work
 
