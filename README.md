@@ -1,7 +1,7 @@
 # 🤖 30-Day Kaggle ML Roadmap
 
-> A structured, hands on machine learning journey from raw data to real Kaggle submissions.  
-> **Status:** 🟢 Active
+> A structured, hands-on machine learning journey — from raw data to real Kaggle submissions.  
+> **Goal:** AI/ML job-ready by June 2026 | **Status:** 🟢 Active
 
 ---
 
@@ -42,6 +42,14 @@ Each project follows a deliberate learning sequence — simpler concepts first, 
 
 ---
 
+## 🚀 Live Demos
+
+| Project | Live App | Description |
+|---------|----------|-------------|
+| SMS Spam Classifier | [▶️ Try it on Hugging Face](https://huggingface.co/spaces/faisalimam19/sms-spam-classifier) | Type any SMS message — get SPAM or HAM instantly |
+
+---
+
 ## 📁 Repository Structure
 
 ```
@@ -56,7 +64,7 @@ kaggle-ml-roadmap/
 │   └── bike_submission.csv            ← Kaggle submission (RMSLE: 0.40794)
 │
 ├── 03_sms_spam/
-│   └── sms_spam_complete.py           ← Complete pipeline: EDA → Preprocessing → TF-IDF → NB → CV → Deployment
+│   └── sms_spam_complete.py           ← Complete pipeline: EDA → TF-IDF → NB → CV → Deployment
 │
 ├── 04_customer_segmentation/          ← In Progress
 └── 05_movielens/                      ← Coming soon
@@ -87,18 +95,19 @@ kaggle-ml-roadmap/
 
 **Dataset:** 5,572 real SMS messages | 86.6% ham | 13.4% spam
 
+**🔗 Live Demo:** https://huggingface.co/spaces/faisalimam19/sms-spam-classifier
+
 **Full Pipeline:**
 - EDA — identified class imbalance (accuracy is misleading here)
 - Key insight: spam messages are ~2x longer than ham — length is a signal
-- Text preprocessing pipeline: lowercasing → punctuation removal → stopword removal → stemming
+- Text preprocessing: lowercasing → punctuation removal → stopword removal → stemming
 - Example: `"Congratulations! You've WON a FREE iPhone!!!"` → `"congratul won free iphon call now"`
 - TF-IDF vectorization → each message converted into 3000 numerical features
 - Stratified 80/20 train-test split (4,457 train | 1,115 test)
 - Naive Bayes trained and threshold tuned (0.5 → 0.3)
-- Logistic Regression compared and outperformed by Naive Bayes
+- Logistic Regression compared — Naive Bayes wins (F1: 0.9343 vs 0.8593)
 - 5-fold stratified cross validation confirms consistency
-- Model and vectorizer saved with pickle for deployment
-- Custom prediction function tested on self-written messages
+- Model deployed live on Hugging Face Spaces using Gradio
 
 **Model Comparison:**
 
@@ -122,6 +131,8 @@ kaggle-ml-roadmap/
 ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.3-orange?style=flat&logo=scikit-learn)
 ![XGBoost](https://img.shields.io/badge/XGBoost-1.7-green?style=flat)
 ![NLTK](https://img.shields.io/badge/NLTK-3.8-yellow?style=flat)
+![Gradio](https://img.shields.io/badge/Gradio-Deployed-orange?style=flat)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-Spaces-yellow?style=flat&logo=huggingface)
 ![Seaborn](https://img.shields.io/badge/Seaborn-0.12-9cf?style=flat)
 ![Kaggle](https://img.shields.io/badge/Kaggle-Notebooks-20BEFF?style=flat&logo=kaggle)
 
@@ -156,8 +167,8 @@ kaggle-ml-roadmap/
 **On Cross Validation:**
 > One test split is never enough. 5-fold cross validation with Mean F1 = 0.9099 and Std Dev = 0.013 proves the model is consistent across all data — not just lucky on one split.
 
-**On Model Persistence:**
-> Always save the TF-IDF vectorizer alongside the model. The model learned weights for 3000 specific features in a specific order. A different vectorizer produces a different order — making all predictions garbage.
+**On Model Deployment:**
+> Building a model is only half the job. Wrapping it in a Gradio app and deploying it on Hugging Face Spaces makes it accessible to anyone in the world — no code, no installation required. A live demo is 10x more impressive than a GitHub link alone.
 
 ---
 
@@ -171,10 +182,11 @@ I document each day's learning on LinkedIn with specific insights, code snippets
 
 ## 🎯 Goal
 
-Hands on experience in **AI/ML** through:
-- Kaggle experience across 5 problem types
+Become job-ready for **AI/ML roles by June 2026** through:
+- Hands-on Kaggle experience across 5 problem types
 - Strong intuition for EDA, feature engineering, and model selection
 - Real leaderboard scores as proof of work
+- Live deployed models anyone can interact with
 
 ---
 
