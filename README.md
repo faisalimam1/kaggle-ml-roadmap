@@ -1,7 +1,7 @@
 # 🤖 30-Day Kaggle ML Roadmap
 
 > A structured, hands-on machine learning journey — from raw data to real Kaggle submissions.  
-> **Goal:** AI/ML job-ready by June 2026 | **Status:** 🟢 Active
+> **Status:** 🟢 Active
 
 ---
 
@@ -181,8 +181,6 @@ I document each day's learning on LinkedIn with specific insights, code snippets
 ---
 
 ## 🎯 Goal
-
-Become job-ready for **AI/ML roles by June 2026** through:
 - Hands-on Kaggle experience across 5 problem types
 - Strong intuition for EDA, feature engineering, and model selection
 - Real leaderboard scores as proof of work
