@@ -25,8 +25,8 @@ Each project follows a deliberate learning sequence — simpler concepts first, 
 |---|---------|------|-----------------|-----------|--------|
 | 01 | [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) | Classification | EDA, Data Cleaning, Feature Engineering, Logistic Regression | - | ✅ Complete |
 | 02 | [Bike Sharing Demand](https://www.kaggle.com/competitions/bike-sharing-demand) | Regression | Linear Regression, Ridge, Lasso, XGBoost, RMSLE | **0.40794** | ✅ Complete |
-| 03 | [SMS Spam Collection](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) | NLP Classification | Text Processing, TF-IDF, Naive Bayes, Threshold Tuning | **F1: 0.9343** | 🟡 In Progress |
-| 04 | [Mall Customer Segmentation](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python) | Clustering | K-Means, Distance Metrics, Elbow Method | - | ⏳ Upcoming |
+| 03 | [SMS Spam Collection](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) | NLP Classification | Text Processing, TF-IDF, Naive Bayes, Threshold Tuning, Cross Validation | **F1: 0.9343** | ✅ Complete |
+| 04 | [Mall Customer Segmentation](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python) | Clustering | K-Means, Distance Metrics, Elbow Method | - | 🟡 In Progress |
 | 05 | [MovieLens](https://www.kaggle.com/datasets/grouplens/movielens-20m-dataset) | Recommendation | Collaborative Filtering, Similarity Metrics | - | ⏳ Upcoming |
 
 ---
@@ -38,6 +38,7 @@ Each project follows a deliberate learning sequence — simpler concepts first, 
 | Titanic | Logistic Regression | Accuracy | - |
 | Bike Sharing | XGBoost | RMSLE | **0.40794** |
 | SMS Spam | Naive Bayes (threshold=0.3) | F1 Score | **0.9343** |
+| SMS Spam | Naive Bayes | Cross-Val F1 | **0.9099 (5-fold)** |
 
 ---
 
@@ -55,9 +56,9 @@ kaggle-ml-roadmap/
 │   └── bike_submission.csv            ← Kaggle submission (RMSLE: 0.40794)
 │
 ├── 03_sms_spam/
-│   └── sms_spam_classifier.py         ← End-to-end pipeline: EDA → TF-IDF → NB → Tuning
+│   └── sms_spam_complete.py           ← Complete pipeline: EDA → Preprocessing → TF-IDF → NB → CV → Deployment
 │
-├── 04_customer_segmentation/          ← Coming soon
+├── 04_customer_segmentation/          ← In Progress
 └── 05_movielens/                      ← Coming soon
 ```
 
@@ -82,35 +83,35 @@ kaggle-ml-roadmap/
 - XGBoost: **0.2882 validation RMSLE → 0.40794 public leaderboard**
 - `workday_rush` (hand-engineered) ranked **#1 in XGBoost feature importance**
 
-### 03 · SMS Spam Detection — NLP Classification (In Progress)
+### 03 · SMS Spam Detection — NLP Classification ✅ Complete
 
 **Dataset:** 5,572 real SMS messages | 86.6% ham | 13.4% spam
 
-**Pipeline built:**
-- EDA — identified class imbalance (accuracy is a misleading metric here)
+**Full Pipeline:**
+- EDA — identified class imbalance (accuracy is misleading here)
 - Key insight: spam messages are ~2x longer than ham — length is a signal
-- Text preprocessing pipeline:
-  - Lowercasing → removes case inconsistency
-  - Punctuation & number removal → eliminates noise
-  - Stopword removal → strips words with zero signal
-  - Stemming → reduces words to root form
+- Text preprocessing pipeline: lowercasing → punctuation removal → stopword removal → stemming
 - Example: `"Congratulations! You've WON a FREE iPhone!!!"` → `"congratul won free iphon call now"`
-- TF-IDF vectorization → converted each message into 3000 numerical features
-- Stratified 80/20 train-test split (4,457 train, 1,115 test)
+- TF-IDF vectorization → each message converted into 3000 numerical features
+- Stratified 80/20 train-test split (4,457 train | 1,115 test)
+- Naive Bayes trained and threshold tuned (0.5 → 0.3)
+- Logistic Regression compared and outperformed by Naive Bayes
+- 5-fold stratified cross validation confirms consistency
+- Model and vectorizer saved with pickle for deployment
+- Custom prediction function tested on self-written messages
 
 **Model Comparison:**
 
-| Model | Accuracy | Precision | Recall | F1 Score |
-|-------|----------|-----------|--------|----------|
-| Naive Bayes (default threshold = 0.5) | 97.67% | 99.20% | 83.22% | 0.9051 |
-| **Naive Bayes (tuned threshold = 0.3)** | — | — | **90.60%** | **0.9343** |
-| Logistic Regression | — | — | 75.84% | 0.8593 |
+| Model | Precision | Recall | F1 Score |
+|-------|-----------|--------|----------|
+| Naive Bayes (default threshold = 0.5) | 99.20% | 83.22% | 0.9051 |
+| **Naive Bayes (tuned threshold = 0.3)** | — | **90.60%** | **0.9343** |
+| Logistic Regression | — | 75.84% | 0.8593 |
 
-**Key Finding:**
-Threshold tuning from 0.5 → 0.3 improved F1 from 0.9051 → **0.9343** and caught significantly more spam. Default thresholds are rarely optimal for imbalanced business problems where recall matters more than precision.
+**Cross Validation:** Mean F1 = 0.9099 | Std Dev = 0.013 (5-fold stratified)
 
-**Coming up:**
-- Day 10: Cross validation + model persistence + testing on custom SMS messages
+### 04 · Mall Customer Segmentation — Clustering (In Progress)
+- Coming soon: K-Means, Elbow Method, customer segment analysis
 
 ---
 
@@ -140,17 +141,23 @@ Threshold tuning from 0.5 → 0.3 improved F1 from 0.9051 → **0.9343** and cau
 **On Overfitting to Validation:**
 > Tuning improved validation RMSLE (0.2882 → 0.2765) but worsened Kaggle score (0.4079 → 0.4121). Validation on randomly split data doesn't simulate future time periods. Time-series cross-validation is the real fix.
 
-**On Class Imbalance (NLP):**
-> In the SMS Spam dataset, 86.6% of messages are ham. A model predicting "ham" every time scores 86.6% accuracy — and catches zero spam. This is why F1 score is the right metric for imbalanced classification problems.
+**On Class Imbalance:**
+> In the SMS Spam dataset, 86.6% of messages are ham. A model predicting ham every time scores 86.6% accuracy and catches zero spam. This is why F1 score is the right metric for imbalanced classification problems.
 
 **On Text Preprocessing:**
-> Raw text is noise. "FREE", "Free", and "free" are the same word. "winning" and "winner" carry the same meaning. Cleaning text before modeling isn't optional — it's what separates signal from noise.
+> Raw text is noise. FREE, Free, and free are the same word. winning and winner carry the same meaning. Cleaning text before modeling isn't optional — it's what separates signal from noise.
 
 **On Threshold Tuning:**
-> Default Naive Bayes at threshold 0.5 scored F1 = 0.9051 and missed 25 spam messages. Lowering threshold to 0.3 pushed F1 to 0.9343 and recall from 83.22% to 90.60%. Default model settings are rarely optimal for real business problems. Tuning the decision threshold based on business context (missing spam > false alarms) is what separates a working model from a great one.
+> Default Naive Bayes at threshold 0.5 scored F1 = 0.9051 and missed 25 spam messages. Lowering threshold to 0.3 pushed F1 to 0.9343 and recall from 83.22% to 90.60%. Default model settings are rarely optimal — tuning based on business context is what separates a working model from a great one.
 
 **On Algorithm Fit:**
 > Logistic Regression underperformed Naive Bayes (F1: 0.8593 vs 0.9343) on SMS Spam. The best-known algorithm isn't always the best fit — Naive Bayes was designed for word frequencies, which is exactly what TF-IDF produces.
+
+**On Cross Validation:**
+> One test split is never enough. 5-fold cross validation with Mean F1 = 0.9099 and Std Dev = 0.013 proves the model is consistent across all data — not just lucky on one split.
+
+**On Model Persistence:**
+> Always save the TF-IDF vectorizer alongside the model. The model learned weights for 3000 specific features in a specific order. A different vectorizer produces a different order — making all predictions garbage.
 
 ---
 
