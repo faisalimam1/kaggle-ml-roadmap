@@ -1,19 +1,19 @@
 # 🛍️ Mall Customer Segmentation
 ### Unsupervised Machine Learning | K-Means Clustering | Business Intelligence
 
-> *"The algorithm didn't find the 5 groups. The data always had them. The algorithm just confirmed what careful EDA already revealed."*
+> *"The algorithm didn't just find the 5 groups. The data always had them. The algorithm just confirmed what careful EDA already revealed."*
 
 ---
 
 ## 📌 Project Overview
 
-A mall's marketing team has data on 200 customers but no way to target them meaningfully — sending the same campaign to a broke college student and a wealthy executive is wasted spend.
+A mall's marketing team has data on 200 customers but no way to target them meaningfully, sending the same campaign to a broke college student and a wealthy executive is wasted spend.
 
 This project solves that.
 
 Using **K-Means Clustering**, I segmented 200 mall customers into **5 distinct personas** based on their Annual Income and Spending Score — each with a tailored marketing strategy that the business can act on immediately.
 
-This is not a classification problem. There are no labels, no correct answers, no ground truth. The challenge is discovering hidden structure in raw data — and translating it into business decisions.
+This is not a classification problem. There are no labels, no correct answers, no ground truth. The challenge is discovering hidden structure in raw data and translating it into business decisions.
 
 ---
 
@@ -83,29 +83,11 @@ Without scaling, income would **dominate every distance calculation** purely bec
 
 This is not optional preprocessing hygiene in K-Means. It's correctness.
 
-```python
-from sklearn.preprocessing import StandardScaler
-
-X = df[['Annual Income (k$)', 'Spending Score (1-100)']].values
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-```
-
----
 
 ## 📐 Finding Optimal K — The Elbow Method
 
 K-Means requires you to specify K (number of clusters) upfront. The Elbow Method finds the optimal K by running the algorithm for K = 1 to 10 and plotting **WCSS (Within-Cluster Sum of Squares)** — a measure of how tightly packed clusters are.
 
-```python
-from sklearn.cluster import KMeans
-
-wcss = []
-for k in range(1, 11):
-    kmeans = KMeans(n_clusters=k, init='k-means++', random_state=42, n_init=10)
-    kmeans.fit(X_scaled)
-    wcss.append(kmeans.inertia_)
-```
 
 **Result:** The elbow appears sharply at **K = 5** — WCSS drops significantly up to K=5, then flattens. Adding more clusters beyond 5 yields diminishing returns.
 
@@ -115,16 +97,6 @@ This mathematically confirmed the 5 groups I identified visually during EDA. Whe
 
 ## 🤖 Model — K-Means Clustering
 
-```python
-kmeans = KMeans(
-    n_clusters=5,
-    init='k-means++',   # Smart initialization — avoids bad random starts
-    random_state=42,    # Reproducibility
-    n_init=10           # Run 10 times, pick best result
-)
-kmeans.fit(X_scaled)
-df['Cluster'] = kmeans.labels_
-```
 
 **Why k-means++?**
 Standard K-Means places initial centroids randomly — bad luck can lead to poor final clusters. `k-means++` spreads initial centroids intelligently, giving consistently better results.
@@ -202,18 +174,6 @@ This was not part of the original clustering — it was discovered by thinking b
 
 ---
 
-## 📁 Repository Structure
-
-```
-04_customer_segmentation/
-│
-├── customer_segmentation.ipynb   ← Full notebook: EDA → Model → Insights
-├── Mall_Customers.csv            ← Raw dataset
-└── README.md                     ← This file
-```
-
----
-
 ## 🧠 Key Learnings
 
 **On Unsupervised Learning:**
@@ -232,7 +192,7 @@ This was not part of the original clustering — it was discovered by thinking b
 
 ## 👤 Author
 
-**Faisal Imam** — Final-year Computer Science student documenting a complete 30-day ML journey through real Kaggle problems.
+**Faisal Imam** 
 
 🔗 [LinkedIn](https://www.linkedin.com/in/faisalimam19) | 🏆 [Kaggle](https://www.kaggle.com) | 📁 [Full 30-Day Roadmap Repo](../)
 
