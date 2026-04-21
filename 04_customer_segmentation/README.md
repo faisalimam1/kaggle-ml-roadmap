@@ -194,7 +194,7 @@ This was not part of the original clustering — it was discovered by thinking b
 
 **Faisal Imam** 
 
-🔗 [LinkedIn](https://www.linkedin.com/in/faisalimam19) | 🏆 [Kaggle](https://www.kaggle.com) | 📁 [Full 30-Day Roadmap Repo](../)
+🔗 [LinkedIn](https://www.linkedin.com/in/faisalimam19) | 🏆 [Kaggle](https://www.kaggle.com/faisalimam19) | 📁 [Full 30-Day Roadmap Repo](https://github.com/faisalimam1/kaggle-ml-roadmap/tree/main)
 
 ---
 
