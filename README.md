@@ -27,7 +27,7 @@ Each project follows a deliberate learning sequence — simpler concepts first, 
 | 02 | [Bike Sharing Demand](https://www.kaggle.com/competitions/bike-sharing-demand) | Regression | Linear Regression, Ridge, Lasso, XGBoost, RMSLE | **0.40794** | ✅ Complete |
 | 03 | [SMS Spam Collection](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) | NLP Classification | Text Processing, TF-IDF, Naive Bayes, Threshold Tuning, Cross Validation | **F1: 0.9343** | ✅ Complete |
 | 04 | [Mall Customer Segmentation](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python) | Clustering | K-Means, Distance Metrics, Elbow Method | - | 🟡 In Progress |
-| 05 | [MovieLens](https://www.kaggle.com/datasets/grouplens/movielens-20m-dataset) | Recommendation | Collaborative Filtering, Similarity Metrics | - | ⏳ Upcoming |
+| 05 | [MovieLens 100K](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset) | Recommendation | EDA, Sparsity Analysis, Popularity-Based Recommender, Weighted Rating | - | 🟡 In Progress |
 
 ---
 
@@ -67,7 +67,9 @@ kaggle-ml-roadmap/
 │   └── sms_spam_complete.py           ← Complete pipeline: EDA → TF-IDF → NB → CV → Deployment
 │
 ├── 04_customer_segmentation/          ← In Progress
-└── 05_movielens/                      ← Coming soon
+│
+└── 05_movielens/
+    └── movielens.py                   ← Day 25: EDA + Popularity Recommender | Days 26-29: In Progress
 ```
 
 ---
@@ -122,6 +124,22 @@ kaggle-ml-roadmap/
 ### 04 · Mall Customer Segmentation — Clustering (In Progress)
 - Coming soon: K-Means, Elbow Method, customer segment analysis
 
+### 05 · MovieLens 100K — Recommendation System 🟡 In Progress
+
+**Dataset:** 100,000 ratings | 943 users | 1,682 movies | Rating scale: 1–5
+
+**Day 25 — EDA + Popularity-Based Recommender**
+- Analyzed rating distribution — identified positivity bias (ratings skewed toward 4 and 3)
+- Studied user activity distribution — identified cold-start risk for low-activity users
+- Studied movie popularity — revealed the long tail problem (most movies rated by very few users)
+- Computed sparsity: **93.70%** — only 6 in every 100 user-movie pairs have any rating
+- Built Weighted Rating Recommender using IMDb-style formula (corrects for low-vote inflation)
+- Top result: Schindler's List (1993) — weighted score: 4.39
+
+**Key limitation identified:** Every user gets the same recommendation list — zero personalization. This is the ceiling of popularity-based systems and the motivation for everything built in Days 26–29.
+
+**Coming next:** Content-Based Filtering → Collaborative Filtering → Matrix Factorization (SVD)
+
 ---
 
 ## 🛠️ Tech Stack
@@ -169,6 +187,12 @@ kaggle-ml-roadmap/
 
 **On Model Deployment:**
 > Building a model is only half the job. Wrapping it in a Gradio app and deploying it on Hugging Face Spaces makes it accessible to anyone in the world — no code, no installation required. A live demo is 10x more impressive than a GitHub link alone.
+
+**On Sparsity in Recommendation Systems:**
+> The MovieLens matrix is 93.70% empty — only 6 in every 100 user-movie pairs have a rating. This is the central challenge of recommendation systems: making confident predictions from almost no data. Every technique from Day 26 onward exists specifically to solve this.
+
+**On Popularity Bias:**
+> Raw average rating is not a reliable popularity metric. A movie with 5 ratings all at 5★ should not outrank a movie with 500 ratings at 4.5★. The Weighted Rating formula (used by IMDb) corrects for this by pulling low-vote scores toward the global mean — rewarding confidence, not just enthusiasm.
 
 ---
 
