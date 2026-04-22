@@ -26,7 +26,7 @@ Each project follows a deliberate learning sequence — simpler concepts first, 
 | 01 | [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) | Classification | EDA, Data Cleaning, Feature Engineering, Logistic Regression | - | ✅ Complete |
 | 02 | [Bike Sharing Demand](https://www.kaggle.com/competitions/bike-sharing-demand) | Regression | Linear Regression, Ridge, Lasso, XGBoost, RMSLE | **0.40794** | ✅ Complete |
 | 03 | [SMS Spam Collection](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) | NLP Classification | Text Processing, TF-IDF, Naive Bayes, Threshold Tuning, Cross Validation | **F1: 0.9343** | ✅ Complete |
-| 04 | [Mall Customer Segmentation](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python) | Clustering | K-Means, Distance Metrics, Elbow Method | - | 🟡 In Progress |
+| 04 | [Mall Customer Segmentation](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python) | Clustering | K-Means, Distance Metrics, Elbow Method | ✅ Complete |
 | 05 | [MovieLens 100K](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset) | Recommendation | EDA, Sparsity Analysis, Popularity-Based Recommender, Weighted Rating | - | 🟡 In Progress |
 
 ---
@@ -66,7 +66,7 @@ kaggle-ml-roadmap/
 ├── 03_sms_spam/
 │   └── sms_spam_complete.py           ← Complete pipeline: EDA → TF-IDF → NB → CV → Deployment
 │
-├── 04_customer_segmentation/          ← In Progress
+├── 04_customer_segmentation/          ← Check this folder for detained explanation 
 │
 └── 05_movielens/
     └── movielens.py                   ← Day 25: EDA + Popularity Recommender | Days 26-29: In Progress
