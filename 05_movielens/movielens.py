@@ -1,6 +1,5 @@
 # ============================================================
 # MovieLens 100K — Recommendation System
-# 30-Day Kaggle ML Roadmap
 # Author: Faisal Imam
 # ============================================================
 
@@ -11,7 +10,7 @@ import seaborn as sns
 from sklearn.metrics.pairwise import cosine_similarity
 
 # ============================================================
-# DAY 25 — EDA + Popularity-Based Recommender
+# DAY 15 — EDA + Popularity-Based Recommender
 # ============================================================
 
 # ── Load Data ─────────────────────────────────────────────
@@ -142,7 +141,7 @@ print(get_popular_recommendations())
 
 
 # ============================================================
-# DAY 26 — Content-Based Filtering
+# DAY 16 — Content-Based Filtering
 # ============================================================
 
 # ── Genre column names ─────────────────────────────────────
