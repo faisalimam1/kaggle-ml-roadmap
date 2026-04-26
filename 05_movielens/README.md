@@ -55,11 +55,11 @@ The entire project lives in a single growing Python file. Each day's work is cle
 ## 🗺️ Project Roadmap
 
 ```
-Day 25 → Understand the problem space (EDA + Popularity Baseline)
-Day 26 → First personalization (Content-Based Filtering)
-Day 27 → Community-driven recommendations (User-Based CF)
-Day 28 → Stable item patterns + latent factors (Item-Based CF + SVD)
-Day 29 → Honest evaluation + full comparison
+Day 1 → Understand the problem space (EDA + Popularity Baseline)
+Day 2 → First personalization (Content-Based Filtering)
+Day 3 → Community-driven recommendations (User-Based CF)
+Day 4 → Stable item patterns + latent factors (Item-Based CF + SVD)
+Day 5 → Honest evaluation + full comparison
 ```
 
 ---
