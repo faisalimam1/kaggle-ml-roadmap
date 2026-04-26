@@ -3,7 +3,6 @@
 > **Project Type:** Recommendation System  
 > **Dataset:** MovieLens 100K (University of Minnesota)  
 > **Status:** ✅ Complete  
-> **Days:** 25–29 of the 30-Day Kaggle ML Roadmap
 
 ---
 
