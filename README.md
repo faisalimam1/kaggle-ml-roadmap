@@ -130,7 +130,7 @@ kaggle-ml-roadmap/
 
 **Dataset:** 100,000 ratings | 943 users | 1,682 movies | Rating scale: 1–5 | Sparsity: 93.70%
 
-**Day 25 — EDA + Popularity-Based Recommender**
+**EDA + Popularity-Based Recommender**
 - Analyzed rating distribution — identified positivity bias (ratings skewed toward 4 and 3)
 - Studied user activity — identified cold-start risk for low-activity users
 - Computed sparsity: **93.70%** — only 6 in every 100 user-movie pairs have any rating
@@ -138,7 +138,7 @@ kaggle-ml-roadmap/
 - Top result: Schindler's List (1993) — weighted score: 4.39
 - Key limitation: every user gets the same list — zero personalization
 
-**Day 26 — Content-Based Filtering**
+**Content-Based Filtering**
 - Built 1,682 × 19 genre matrix — every movie as a numerical vector
 - Computed 1,682 × 1,682 cosine similarity matrix
 - Built user taste profiles — average genre vector of liked movies
@@ -146,7 +146,7 @@ kaggle-ml-roadmap/
 - First real personalization: User 1 (drama/romance) vs User 200 (action/sci-fi) got completely different lists
 - Key limitation: filter bubble — never recommends outside existing taste
 
-**Day 27 — User-Based Collaborative Filtering**
+**User-Based Collaborative Filtering**
 - Built 943 × 1,682 user-item rating matrix
 - Implemented Pearson correlation (adjusts for rating scale bias vs cosine)
 - Only 10 out of 943 users had similarity > 0.5 with User 1
@@ -154,14 +154,14 @@ kaggle-ml-roadmap/
 - Top recommendation for User 1: Schindler's List (predicted 5.0)
 - Key limitation: doesn't scale to millions of users, user taste drift over time
 
-**Day 28 — Item-Based CF + Matrix Factorization (SVD)**
+**Item-Based CF + Matrix Factorization (SVD)**
 - Built item-item similarity on rating patterns (not genres) — captures community-driven similarity
 - Item-Based CF RMSE: **0.9678** | MAE: **0.7573**
 - SVD: decomposed rating matrix into 50 latent factors using scipy svds
 - Predicted full rating matrix from U × Σ × Vᵀ decomposition
 - Key insight: item relationships are stable over time — preferred over user-based in production
 
-**Day 29 — Evaluation + Full Comparison**
+**Evaluation + Full Comparison**
 - Held-out 20% test set for honest evaluation
 - Implemented RMSE, MAE, Precision@10, Recall@10
 
