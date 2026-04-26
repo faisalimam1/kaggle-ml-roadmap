@@ -66,7 +66,7 @@ Day 29 → Honest evaluation + full comparison
 
 ## 📅 Day-by-Day Breakdown
 
-### Day 25 — EDA + Popularity-Based Recommender
+### EDA + Popularity-Based Recommender
 
 **Goal:** Understand the data before building anything. Establish a baseline every future model must beat.
 
@@ -104,7 +104,7 @@ Why not raw average? A movie with 5 ratings all at 5★ should not beat a movie 
 
 ---
 
-### Day 26 — Content-Based Filtering
+### Content-Based Filtering
 
 **Goal:** Personalize recommendations using item features — without looking at any other users.
 
@@ -132,7 +132,7 @@ Content-based can only recommend things similar to what the user already liked. 
 
 ---
 
-### Day 27 — User-Based Collaborative Filtering
+### User-Based Collaborative Filtering
 
 **Goal:** Find users who think like you — then recommend what they loved that you haven't seen.
 
@@ -162,7 +162,7 @@ Neighbors with negative similarity are excluded entirely.
 
 ---
 
-### Day 28 — Item-Based CF + Matrix Factorization (SVD)
+### Item-Based CF + Matrix Factorization (SVD)
 
 **Goal:** Build more stable, scalable collaborative filtering. Then graduate to learned latent factors.
 
@@ -206,7 +206,7 @@ k = 50 latent factors used
 
 ---
 
-### Day 29 — Evaluation + Full Comparison
+### Evaluation + Full Comparison
 
 **Goal:** Honestly measure how good each model actually is. Reveal what the numbers really mean.
 
