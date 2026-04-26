@@ -26,8 +26,8 @@ Each project follows a deliberate learning sequence — simpler concepts first, 
 | 01 | [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) | Classification | EDA, Data Cleaning, Feature Engineering, Logistic Regression | - | ✅ Complete |
 | 02 | [Bike Sharing Demand](https://www.kaggle.com/competitions/bike-sharing-demand) | Regression | Linear Regression, Ridge, Lasso, XGBoost, RMSLE | **0.40794** | ✅ Complete |
 | 03 | [SMS Spam Collection](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) | NLP Classification | Text Processing, TF-IDF, Naive Bayes, Threshold Tuning, Cross Validation | **F1: 0.9343** | ✅ Complete |
-| 04 | [Mall Customer Segmentation](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python) | Clustering | K-Means, Distance Metrics, Elbow Method |-| ✅ Complete |
-| 05 | [MovieLens 100K](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset) | Recommendation | EDA, Sparsity Analysis, Poplarity-Based Recommender, Weighted Rating | - | 🟡 In Progress |
+| 04 | [Mall Customer Segmentation](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python) | Clustering | K-Means, Distance Metrics, Elbow Method | - | ✅ Complete |
+| 05 | [MovieLens 100K](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset) | Recommendation | EDA, Sparsity Analysis, Popularity-Based, Content-Based, Collaborative Filtering, SVD | **Precision@10: 0.2306** | ✅ Complete |
 
 ---
 
@@ -39,6 +39,7 @@ Each project follows a deliberate learning sequence — simpler concepts first, 
 | Bike Sharing | XGBoost | RMSLE | **0.40794** |
 | SMS Spam | Naive Bayes (threshold=0.3) | F1 Score | **0.9343** |
 | SMS Spam | Naive Bayes | Cross-Val F1 | **0.9099 (5-fold)** |
+| MovieLens | SVD (Matrix Factorization) | Precision@10 | **0.2306** |
 
 ---
 
@@ -66,10 +67,10 @@ kaggle-ml-roadmap/
 ├── 03_sms_spam/
 │   └── sms_spam_complete.py           ← Complete pipeline: EDA → TF-IDF → NB → CV → Deployment
 │
-├── 04_customer_segmentation/          ← Check this folder for detained explanation 
+├── 04_customer_segmentation/          ← Check folder README for complete details
 │
 └── 05_movielens/
-    └── movielens.py                   ← Day 25: EDA + Popularity Recommender | Days 26-29: In Progress
+    └── movielens.py                   ← Complete pipeline: Days 25–29 | EDA → Content-Based → CF → SVD → Evaluation
 ```
 
 ---
@@ -121,25 +122,56 @@ kaggle-ml-roadmap/
 
 **Cross Validation:** Mean F1 = 0.9099 | Std Dev = 0.013 (5-fold stratified)
 
-### 04 · Mall Customer Segmentation — Clustering (In Progress)
+### 04 · Mall Customer Segmentation — Clustering ✅ Complete
 - K-Means, Elbow Method, customer segment analysis
--  Check this exclusive folder README file for complete details. 
+- Check the folder README for complete details
 
-### 05 · MovieLens 100K — Recommendation System 🟡 In Progress
+### 05 · MovieLens 100K — Recommendation System ✅ Complete
 
-**Dataset:** 100,000 ratings | 943 users | 1,682 movies | Rating scale: 1–5
+**Dataset:** 100,000 ratings | 943 users | 1,682 movies | Rating scale: 1–5 | Sparsity: 93.70%
 
 **Day 25 — EDA + Popularity-Based Recommender**
 - Analyzed rating distribution — identified positivity bias (ratings skewed toward 4 and 3)
-- Studied user activity distribution — identified cold-start risk for low-activity users
-- Studied movie popularity — revealed the long tail problem (most movies rated by very few users)
+- Studied user activity — identified cold-start risk for low-activity users
 - Computed sparsity: **93.70%** — only 6 in every 100 user-movie pairs have any rating
-- Built Weighted Rating Recommender using IMDb-style formula (corrects for low-vote inflation)
+- Built Weighted Rating Recommender using IMDb-style formula
 - Top result: Schindler's List (1993) — weighted score: 4.39
+- Key limitation: every user gets the same list — zero personalization
 
-**Key limitation identified:** Every user gets the same recommendation list — zero personalization. This is the ceiling of popularity-based systems and the motivation for everything built in Days 26–29.
+**Day 26 — Content-Based Filtering**
+- Built 1,682 × 19 genre matrix — every movie as a numerical vector
+- Computed 1,682 × 1,682 cosine similarity matrix
+- Built user taste profiles — average genre vector of liked movies
+- User 1 taste profile: Drama 0.479 | Comedy 0.301 | Action 0.239
+- First real personalization: User 1 (drama/romance) vs User 200 (action/sci-fi) got completely different lists
+- Key limitation: filter bubble — never recommends outside existing taste
 
-**Coming next:** Content-Based Filtering → Collaborative Filtering → Matrix Factorization (SVD)
+**Day 27 — User-Based Collaborative Filtering**
+- Built 943 × 1,682 user-item rating matrix
+- Implemented Pearson correlation (adjusts for rating scale bias vs cosine)
+- Only 10 out of 943 users had similarity > 0.5 with User 1
+- Weighted prediction: neighbor similarity × neighbor rating / sum of similarities
+- Top recommendation for User 1: Schindler's List (predicted 5.0)
+- Key limitation: doesn't scale to millions of users, user taste drift over time
+
+**Day 28 — Item-Based CF + Matrix Factorization (SVD)**
+- Built item-item similarity on rating patterns (not genres) — captures community-driven similarity
+- Item-Based CF RMSE: **0.9678** | MAE: **0.7573**
+- SVD: decomposed rating matrix into 50 latent factors using scipy svds
+- Predicted full rating matrix from U × Σ × Vᵀ decomposition
+- Key insight: item relationships are stable over time — preferred over user-based in production
+
+**Day 29 — Evaluation + Full Comparison**
+- Held-out 20% test set for honest evaluation
+- Implemented RMSE, MAE, Precision@10, Recall@10
+
+| Model | RMSE | MAE | Precision@10 | Recall@10 | Personalized |
+|-------|------|-----|-------------|----------|--------------|
+| Global Mean Baseline | 1.1239 | 0.9420 | 0.0724 | 0.0516 | No |
+| Item-Based CF | 0.9678 | 0.7573 | 0.0347 | 0.0111 | Yes |
+| **SVD (Matrix Factorization)** | 2.4980 | 2.2418 | **0.2306** | **0.2162** | Yes |
+
+**Key finding:** SVD had the worst RMSE but dominated every ranking metric. Low RMSE ≠ good recommendations. Optimize for the metric that matches the business goal.
 
 ---
 
@@ -194,6 +226,15 @@ kaggle-ml-roadmap/
 
 **On Popularity Bias:**
 > Raw average rating is not a reliable popularity metric. A movie with 5 ratings all at 5★ should not outrank a movie with 500 ratings at 4.5★. The Weighted Rating formula (used by IMDb) corrects for this by pulling low-vote scores toward the global mean — rewarding confidence, not just enthusiasm.
+
+**On Evaluation Metrics:**
+> SVD had the worst RMSE (2.50) but the best Precision@10 (0.2306) and Recall@10 (0.2162). RMSE measures rating prediction accuracy. Precision@K measures recommendation quality. They are not the same thing. Always optimize for the metric that matches the actual business goal.
+
+**On Choosing the Right Similarity Metric:**
+> Cosine similarity measures direction — right for genre vectors where magnitude doesn't matter. Pearson correlation adjusts for rating scale bias — right for user ratings where one user rates everything 5 and another rates everything 2 but they share identical taste. Picking the wrong metric gives misleading similarity scores.
+
+**On Production Recommendation Systems:**
+> No single algorithm wins everything. Production systems use a hybrid approach: SVD or CF for candidate generation, content-based for ranking and diversity, popularity-based as a cold-start fallback. Each weakness of one approach is covered by another's strength.
 
 ---
 
